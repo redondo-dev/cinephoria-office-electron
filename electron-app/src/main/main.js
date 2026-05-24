@@ -18,7 +18,7 @@ function createWindow() {
   });
 
   // Charger la page des incidents
-  mainWindow.loadFile(path.join(__dirname, '../renderer/incidents/incidents.html'));
+  mainWindow.loadFile(path.join(__dirname, '../incidents/incidents.html'));
 
   // Afficher la fenêtre quand elle est prête
   mainWindow.once('ready-to-show', () => {
