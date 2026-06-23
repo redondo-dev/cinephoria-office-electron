@@ -1,5 +1,8 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
+// Détection packagé/dev : une app packagée tourne depuis un fichier .asar
+const isPackaged = __dirname.includes('.asar') || __dirname.includes('app.asar');
+
 // Exposition sécurisée des APIs au renderer process
 contextBridge.exposeInMainWorld('electronAPI', {
     // Informations système

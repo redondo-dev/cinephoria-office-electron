@@ -1,7 +1,10 @@
 class OfficeApiService {
     constructor() {
         // URL de votre backend Cinephoria - à adapter selon votre configuration
-        this.baseURL = 'http://localhost:3000/api/office';
+        const isPackaged = window.electronAPI?.isPackaged ?? false;
+        this.baseURL = isPackaged
+            ? 'https://cinephoria-backend-xayv.onrender.com/api/office'
+            : 'http://localhost:3000/api/office';
     }
 
     async request(endpoint, options = {}) {
@@ -31,9 +34,9 @@ class OfficeApiService {
         return this.request('/incidents');
     }
 
-    async getRoomIncidents(roomId) {
-        return this.request(`/incidents/room/${roomId}`);
-    }
+    // async getRoomIncidents(roomId) {
+    //     return this.request(`/incidents/room/${roomId}`);
+    // }
 
     async createIncident(incidentData) {
         return this.request('/incidents', {
@@ -53,7 +56,7 @@ class OfficeApiService {
         return this.request('/incidents/stats');
     }
 
-    // Salles
+     Salles
     async getRooms() {
         return this.request('/rooms');
     }
@@ -61,7 +64,7 @@ class OfficeApiService {
     async getRoomEquipment(roomId) {
         return this.request(`/rooms/${roomId}/equipment`);
     }
-}
+ }
 
 // Export singleton
 const officeApiService = new OfficeApiService();
