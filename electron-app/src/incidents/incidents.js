@@ -6,6 +6,8 @@ class IncidentsManager {
         this.initializeElements();
         this.bindEvents();
         this.loadInitialData();
+        this.exportManager = new ExportManager(this);
+        window.electronAPI?.onMenuExportIncidents(() => this.exportManager.showExportMenu());
     }
 
     initializeElements() {
@@ -19,6 +21,7 @@ class IncidentsManager {
     bindEvents() {
         this.incidentForm.addEventListener('submit', (e) => this.handleSubmit(e));
         this.roomSelect.addEventListener('change', () => this.loadEquipmentForRoom());
+        document.getElementById('exportBtn')?.addEventListener('click', () => this.exportManager.showExportMenu());
     }
 
     async loadInitialData() {
@@ -44,6 +47,7 @@ class IncidentsManager {
     async loadIncidents() {
         try {
             this.incidents = await officeApiService.getIncidents();
+            this.loadStats();
             this.renderIncidents();
         } catch (error) {
             console.error('Erreur chargement incidents:', error);
@@ -119,6 +123,24 @@ class IncidentsManager {
         }
     }
 
+    async loadStats() {
+        try {
+            const s = await officeApiService.getIncidentStats();
+            document.getElementById('statTotal').textContent = s.total;
+            document.getElementById('statOpen').textContent = s.open;
+            document.getElementById('statCritical').textContent = s.critical;
+        } catch (error) {
+            console.error('Erreur chargement stats:', error);
+        }
+    }
+    showSuccess(message) {
+        const div = document.createElement('div');
+        div.className = 'success-message';
+        div.textContent = message;
+        div.style.cssText = 'position:fixed;top:20px;right:20px;background:#2e7d32;color:#fff;padding:12px 16px;border-radius:6px;z-index:10001;';
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 3000);
+    }
     showError(message) {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'error-message';
