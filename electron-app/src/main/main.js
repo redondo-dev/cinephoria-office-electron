@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 // Garder une référence globale de la fenêtre
@@ -12,6 +12,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js'),
       enableRemoteModule: false
     },
     show: false
@@ -23,7 +24,7 @@ function createWindow() {
   // Afficher la fenêtre quand elle est prête
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
-    mainWindow.webContents.openDevTools(); // Ouvrir les DevTools pour le développement
+    if (!app.isPackaged) { mainWindow.webContents.openDevTools(); }
   });
 
   // Gérer la fermeture
@@ -33,6 +34,10 @@ function createWindow() {
 }
 
 // Quand Electron est prêt
+ipcMain.on('app:is-packaged', (event) => {
+  event.returnValue = app.isPackaged;
+});
+
 app.whenReady().then(createWindow);
 
 // Quitter quand toutes les fenêtres sont fermées
