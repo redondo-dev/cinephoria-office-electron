@@ -50,6 +50,8 @@
             <!-- Liste des incidents -->
             <section class="incidents-section">
                 <h2>Installations défaillantes signalées</h2>
+                <div style="display:flex;gap:16px;margin-bottom:16px"><div style="flex:1;background:#1f1f1f;border:1px solid #333;border-radius:8px;padding:16px;text-align:center"><div id="statTotal" style="font-size:2rem;font-weight:700;color:#ffffff">-</div><small>Total des incidents</small></div><div style="flex:1;background:#1f1f1f;border:1px solid #333;border-radius:8px;padding:16px;text-align:center"><div id="statOpen" style="font-size:2rem;font-weight:700;color:#f5a623">-</div><small>Incidents ouverts</small></div><div style="flex:1;background:#1f1f1f;border:1px solid #333;border-radius:8px;padding:16px;text-align:center"><div id="statCritical" style="font-size:2rem;font-weight:700;color:#e50914">-</div><small>Incidents critiques</small></div></div>
+                <div style="margin-bottom:16px"><button type="button" id="exportBtn" class="btn-submit" style="width:auto;padding:10px 20px">Exporter les incidents</button></div>
                 <div id="incidentsList" class="incidents-list">
                     <div class="loading">Chargement...</div>
                 </div>
@@ -58,6 +60,8 @@
     </div>
 
     <script src="../shared/api.js"></script>
+    <script src="../../node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+    <script src="exportManager.js"></script>
     <script src="incidents.js"></script>
 </body>
 </html>

@@ -20,12 +20,12 @@
     "nodemon": "^3.0.0"
   },
   "dependencies": {
-    "jspdf": "^3.0.3"
+    "jspdf": "^4.2.1"
   },
   "build": {
     "appId": "com.cinephoria.office",
     "productName": "Cinephoria Office",
-     "copyright": "Copyright © 2026 Reda Riad",
+    "copyright": "Copyright © 2026 Reda Riad",
     "directories": {
       "output": "dist"
     },

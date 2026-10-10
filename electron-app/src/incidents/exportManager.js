@@ -98,7 +98,7 @@ class ExportManager {
             const incidents = this.incidentsManager.incidents;
             pdf.text(`Total des incidents: ${incidents.length}`, 20, 45);
             pdf.text(`Incidents ouverts: ${incidents.filter(i => i.statut === 'ouvert').length}`, 20, 55);
-            pdf.text(`Incidents critiques: ${incidents.filter(i => i.priorite === 'critical').length}`, 20, 65);
+            pdf.text(`Incidents critiques: ${incidents.filter(i => (i.priorite === 'critique' || i.priorite === 'critical')).length}`, 20, 65);
             
             let yPosition = 80;
             
@@ -132,6 +132,10 @@ class ExportManager {
                 
                 const priorityColors = {
                     'critical': [229, 9, 20],
+                    'critique': [229, 9, 20],
+                    'haute': [255, 107, 53],
+                    'moyenne': [255, 165, 0],
+                    'basse': [76, 175, 80],
                     'high': [255, 107, 53],
                     'medium': [255, 165, 0],
                     'low': [76, 175, 80]
@@ -241,7 +245,11 @@ class ExportManager {
             low: 'Basse',
             medium: 'Moyenne',
             high: 'Haute',
-            critical: 'Critique'
+            critical: 'Critique',
+            critique: 'Critique',
+            haute: 'Haute',
+            moyenne: 'Moyenne',
+            basse: 'Basse'
         };
         return labels[priority] || priority;
     }
