@@ -7,6 +7,7 @@ const isPackaged = __dirname.includes('.asar') || __dirname.includes('app.asar')
 contextBridge.exposeInMainWorld('electronAPI', {
     // Informations système
     platform: process.platform,
+    isPackaged,
     versions: process.versions,
     
     // Communication avec le main process
